@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View {{item.name}}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="h-screen w-screen">
+    <div class='mb-10 h-14 w-full shadow bg-slate-300 flex flex-row p-4 justify-around items-center'>
+        My Cool site
+        <a class="rounded py-2 px-4 bg-green-500 font-bold text-white flex justify-center items-center" href="/items">Dashboard</a>
+        <a class="rounded py-2 px-4 bg-red-500 font-bold text-white flex justify-center items-center" href="/logout">Logout</a>
+        <script src="//unpkg.com/alpinejs" defer></script>
+
+    </div>
+    <div class="w-full h-full flex justify-center items-center">
+        <div class="flex flex-col shadow gap-4 border-2 rounded-lg p-20">
+            <h3 class="text-2xl font-bold">Name: {{item.name}}</h3>
+            <h3 onmouseenter="toggle(true)" onmouseleave="toggle(false)" class="text-2xl font-bold relative"><i class="text-red-500 fa fa-heart" style="font-size:36px;"></i>
+                {{item.likes | length}}
+            
+                {% if item.likes | length > 0%}
+                    <div id="likeModal" class="hidden bg-white text-sm rounded border-2 shadow-lg p-4 w-fit absolute top-2 left-2">
+                        {% for like in item.likes%}
+                        <p>{{like.first_name}} {{like.last_name}}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </h3>
+
+            <img src="{{item.img_url}}" alt="missing picture" class="bg-slate-200 rounded h-80 w-80">
+            <p class="text-xl font-bold">Description:{{item.description}}</p>
+            <p class="text-green-500 text-xl font-bold">Price:{{item.price}}</p>
+            <div class="flex flex-col gap-4">
+                <a class="rounded py-2 px-4 bg-green-500 font-bold text-white flex justify-center items-center" href="/items/{{item.id}}/edit">Edit</a>
+                <a class="rounded py-2 px-4 bg-red-500 font-bold text-white flex justify-center items-center" href="/items/delete/{{item.id}}">Delete</a>
+            </div>
+            
+        </div>
+    </div>
+    <script>
+        let show = false;
+
+        const toggle = (status)=>{
+            show = status
+            if(show){
+                document.getElementById("likeModal").classList.remove("hidden")
+            }
+            else{
+                document.getElementById("likeModal").classList.add("hidden")
+
+            }
+        }
+    </script>
+</body>
+</html>

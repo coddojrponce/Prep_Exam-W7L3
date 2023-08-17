@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+    <div>
+        <div class='mb-10 h-14 w-full shadow bg-slate-300 flex flex-row p-4 justify-around items-center'>
+            My Cool site
+            <a class="rounded py-2 px-4 bg-green-500 font-bold text-white flex justify-center items-center" href="/items">Dashboard</a>
+            <a class="rounded py-2 px-4 bg-red-500 font-bold text-white flex justify-center items-center" href="/logout">Logout</a>
+        </div>
+        <form method="POST" action="/items/create" class="rounded p-4 shadow flex flex-col gap-4">
+            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p class="bg-red-300 rounded">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+            {% endwith %}
+            <h2 class="text-3xl">Create Item</h2>
+            <div class="flex flex-col">
+                <label for="">Name:</label>
+                <input type="text" class="border-2 rounded" name="name">
+            </div>
+            <div class="flex flex-col">
+                <label for="">Description:</label>
+                <input type="text" class="border-2 rounded" name="description">
+            </div>
+            <div class="flex flex-col">
+                <label for="">Image Url:</label>
+                <input type="text" class="border-2 rounded" name="img_url">
+            </div>
+            <div class="flex flex-col">
+                <label for="">Price:</label>
+                <input type="text" class="border-2 rounded" name="price">
+            </div>
+            <div class="form-label">
+                <input class="bg-green-500 font-bold text-white rounded py-2 px-4" type="submit" value="Create Item">
+                <a class="bg-red-500 rounded text-white font-bold py-2 px-4" type="submit" href="/items">Cancel</a>
+
+            </div>
+        </form>
+    </div>
+</body>
+</html>

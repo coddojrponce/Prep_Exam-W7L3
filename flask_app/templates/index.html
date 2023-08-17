@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+    <div class="flex flex-col gap-2 justify-around ">
+        <div class='mb-10 h-14 w-full shadow bg-slate-300 flex flex-row p-4 justify-around items-center'>
+            My Cool site
+            <!-- <a class="rounded py-2 px-4 bg-green-500 font-bold text-white flex justify-center items-center" href="/items/new">+ Create</a>
+            <a class="rounded py-2 px-4 bg-red-500 font-bold text-white flex justify-center items-center" href="/logout">Logout</a> -->
+        </div>
+        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p class="bg-red-300 rounded">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+        {% endwith %}
+        <div class="flex flex-row w-full justify-around h-full">
+            <form action="/login" class="rounded p-4 shadow flex flex-col gap-4" method="POST">
+                <h2 class="text-3xl">Login</h2>
+                <div class="flex flex-col">
+                    <label for="">Email:</label>
+                    <input type="text" class="border-2 rounded" name="email">
+                </div>
+                <div class="flex flex-col">
+                    <label for="">Password:</label>
+                    <input type="password" class="border-2 rounded" name="password">
+                </div>
+                <div class="form-label">
+                    <input class="bg-green-300 rounded py-2 px-4" type="submit" value="login">
+                </div>
+            </form>
+            <form action="/register" class="rounded p-4 shadow flex flex-col gap-4" method="POST">
+                <h2 class="text-3xl">Register</h2>
+                <div class="flex flex-col">
+                    <label for="">First Name:</label>
+                    <input type="text" class="border-2 rounded" name="first_name">
+                </div>
+                <div class="flex flex-col">
+                    <label for="">Last Name:</label>
+                    <input type="text" class="border-2 rounded" name="last_name">
+                </div>
+                <div class="flex flex-col">
+                    <label for="">Email:</label>
+                    <input type="text" class="border-2 rounded" name="email">
+                </div>
+                <div class="flex flex-col">
+                    <label for="">Password:</label>
+                    <input type="password" class="border-2 rounded" name="password">
+                </div>
+                <div class="form-label">
+                    <input class="bg-green-300 rounded py-2 px-4" type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

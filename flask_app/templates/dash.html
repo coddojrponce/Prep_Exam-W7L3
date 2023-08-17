@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body class="w-screen h-screen">
+    <div class='mb-10 h-14 w-full shadow bg-slate-300 flex flex-row p-4 justify-around items-center'>
+        My Cool site
+        <a class="rounded py-2 px-4 bg-green-500 font-bold text-white flex justify-center items-center" href="/items/new">+ Create</a>
+        <a class="rounded py-2 px-4 bg-red-500 font-bold text-white flex justify-center items-center" href="/logout">Logout</a>
+    </div>
+    <div class="w-full bg-red-200">
+        
+        <table class="min-w-full">
+            <thead class="bg-gray-200 border-b">
+                <tr >
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        ID
+                    </th> 
+                    <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        NAME
+                    </th> 
+                    <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        IMAGE
+                    </th> 
+                    <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        PRICE
+                    </th> 
+                    <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        OWNER
+                    </th> 
+                    <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        ACTIONS
+                    </th>
+                    <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                        LIKES
+                    </th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items%}
+                <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{item.id}}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{item.name}}</td>
+                    <td class="p-2"><img src="{{item.img_url}}" alt="" class="w-20 h-20 rounded"></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{item.price}}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{item.owner.first_name}} {{item.owner.last_name}}</td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <a class="text-blue-300" href="/items/{{item.id}}/view">
+                            View
+                        </a>
+                    {% if session['user_id'] == item.owner.id %}
+                        <a class="text-blue-300" href="/items/{{item.id}}/edit">
+                            Edit
+                        </a>
+                        <a class="text-blue-300" href="/items/delete/{{item.id}}">
+                            Delete
+                        </a>
+                    {% endif %}
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                
+                        <a href="/items/{{item.id}}/like">
+                            <i class="text-red-500 fa fa-heart" style="font-size:20px;"></i>
+                        </a>
+                        {{item.likes | length}}
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+</body>
+</html>
